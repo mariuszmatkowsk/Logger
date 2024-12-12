@@ -4,7 +4,7 @@
 #include <iostream>
 #include <ostream>
 
-namespace logger {
+namespace Log {
 
 class Logger {
 private:
