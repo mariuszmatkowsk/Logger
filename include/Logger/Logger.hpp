@@ -3,7 +3,6 @@
 #include <cassert>
 #include <iostream>
 #include <ostream>
-#include <stdexcept>
 
 namespace logger {
 
@@ -18,6 +17,10 @@ private:
         LoggerProxy& operator<<(const T& x) {
             os_ << x;
             return *this;
+        }
+
+        ~LoggerProxy() {
+            os_ << std::endl;
         }
 
     private:

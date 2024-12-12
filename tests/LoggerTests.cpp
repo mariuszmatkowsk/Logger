@@ -25,7 +25,7 @@ TEST(LoggerTest, canLogInfo) {
 
     logger << logger::info << "info";
 
-    EXPECT_EQ(ss.str(), "Test/info: info");
+    EXPECT_EQ(ss.str(), "Test/info: info\n");
 }
 
 TEST(LoggerTest, canLogWarning) {
@@ -34,7 +34,7 @@ TEST(LoggerTest, canLogWarning) {
 
     logger << logger::warn << "warning";
 
-    EXPECT_EQ(ss.str(), "Test/warning: warning");
+    EXPECT_EQ(ss.str(), "Test/warning: warning\n");
 }
 
 TEST(LoggerTest, canLogDebug) {
@@ -42,7 +42,7 @@ TEST(LoggerTest, canLogDebug) {
     logger::Logger logger{"Test", ss};
 
     logger << logger::debug << "debug";
-    EXPECT_EQ(ss.str(), "Test/debug: debug");
+    EXPECT_EQ(ss.str(), "Test/debug: debug\n");
 }
 
 TEST(LoggerTest, canLogError) {
@@ -51,12 +51,15 @@ TEST(LoggerTest, canLogError) {
 
     logger << logger::err << "error";
 
-    EXPECT_EQ(ss.str(), "Test/error: error");
+    EXPECT_EQ(ss.str(), "Test/error: error\n");
 }
 
-// TEST(LoggerTest, ssss) {
-//     std::stringstream ss;
-//     logger::Logger logger{"Test", ss};
-//
-//     logger << 1;
-// }
+TEST(LoggerTest, multipleLineLogging) {
+    std::stringstream ss;
+    logger::Logger logger{"Test", ss};
+
+    logger << logger::err << "error";
+    logger << logger::info << "info";
+
+    EXPECT_EQ(ss.str(), "Test/error: error\nTest/info: info\n");
+}
